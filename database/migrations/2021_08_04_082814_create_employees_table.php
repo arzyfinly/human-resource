@@ -18,28 +18,27 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('departement_id');
             $table->unsignedBigInteger('user_id');
-            $table->timestamps();
-        });
-
-        Schema::table('employees',function(Blueprint $table){
             $table->foreign('company_id')
             ->references('id')
             ->on('companies')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-        });
-
-        Schema::table('employees',function(Blueprint $table){
+            $table->foreign('departement_id')
+            ->references('id')
+            ->on('departements')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
             ->onDelete('cascade')
             ->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
-    
     /**
      * Reverse the migrations.
      *
@@ -47,6 +46,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empolyees');
+        Schema::dropIfExists('employees');
     }
 }
