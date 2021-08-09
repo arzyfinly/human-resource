@@ -31,6 +31,7 @@
                                 <th class="text-center" scope="col">Email</th>
                                 <th class="text-center" scope="col">Company</th>
                                 <th class="text-center" scope="col">Departement Name</th>
+                                <th class="text-center" scope="col">Action</th>
                                 </tr>
                         </thead>
                         <tbody>
@@ -44,6 +45,14 @@
                                 <td class="text-center">{{ $employee->user->email }}</td>
                                 <td class="text-center">{{ $employee->company->name }}</td>
                                 <td class="text-center">{{ $employee->departement->name }}</td>
+                                <td class="text-center">
+                                    <form action="{{ route('employees.destroy',$employee->user_id) }}" onsubmit="return confirm('Yakin akan dihapus')" method="POST">                      
+                                        <a class="btn btn-primary" href="{{ route('employees.edit',$employee->user_id) }}">Edit</a>                       
+                                        @csrf
+                                        @method('DELETE')                         
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                           @empty
                               <div class="alert alert-danger">
